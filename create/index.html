@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../js/db/dexie.js" defer></script>
+    <script type="module" src="../js/db/db.js" defer></script>
+    <script type="module" src="../js/db/api.js" defer></script>
+    <script type="module" src="../js/create.js" defer></script>
+    <!-- styles -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>cookbook</title>
+  </head>
+  <body>
+    <header class="mb-lg [ header ]">
+      <nav>
+        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
+          <li class="p-md"><a class="[ links ]" href="/">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="Home">
+      <div class="mb-lg flex justify-center">
+        <h2 class="">Create Recipe</h2>
+      </div>
+      <div class="[ form-container ]" id="createRecipeForm">
+        <section class="[ form-grp ]" id="recipeNameSection">
+          <label for="name">Recipe Name:</label>
+          <input type="text" id="name" name="name" required />
+        </section>
+        <section id="ingredientsSection">
+          <div class="[ form-grp ]" id="ingrediantName">
+            <label for="ingredient">Ingredient:</label>
+            <input type="text" id="ingredient" name="ingredient" required />
+          </div>
+          <div class="[ form-grp ]" id="ingretiantUnit">
+            <label for="unit">Unit:</label>
+            <select id="unit" name="unit" required>
+              <option value="grams">grams</option>
+              <option value="teaspoons">teaspoons</option>
+              <option value="tablespoons">tablespoons</option>
+              <option value="ml">ml</option>
+              <option value="liters">liters</option>
+              <option value="cups">cups</option>
+              <option value="pieces">pieces</option>
+              <option value="pinches">pinches</option>
+              <option value="each">each</option>
+            </select>
+          </div>
+          <div class="[ form-grp ]" id="ingredientQuantity">
+            <label for="quantity">Quantity:</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="0"
+              value="0"
+              required
+            />
+          </div>
+          <button class="btn" type="button" id="addIngredient">
+            Add Ingredient
+          </button>
+        </section>
+        <section class="[ form-grp ]" id="recipeInstuction">
+          <label for="instructions">Instructions:</label>
+          <textarea id="instructions" name="instructions" required></textarea>
+        </section>
+        <button class="btn" type="button" id="addInstruction">
+          Add instructions
+        </button>
+      </div>
+      <div id="createRecipeDisplay">
+        <section class="mb-lg flex justify-center">
+          <h2>Recipe Preview</h2>
+        </section>
+        <div class="[ divider ]"></div>
+        <section
+          class="mb-lg flex flex-column align-center justify-center"
+          id="recipePreviewContent"
+        >
+          <div id="previewName"></div>
+          <div class="[ divider ]"></div>
+          <div>
+            <p>ingredient :</p>
+          </div>
+          <div id="previewIngredients">
+            <ul id="previewIngredientsList"></ul>
+          </div>
+          <div class="[ divider ]"></div>
+          <div id="previewInstructions">
+            <div><p>instructions :</p></div>
+            <ul id="previewInstructionsList"></ul>
+          </div>
+          <div class="[ divider ]"></div>
+          <button class="btn" type="submit" id="createRecipeButton">
+            Create Recipe
+          </button>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 Cookbook. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

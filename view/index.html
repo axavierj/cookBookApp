@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- js -->
+    <script type="module" src="../js/db/dexie.js" defer></script>
+    <script type="module" src="../js/view.js" defer></script>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>cookbook</title>
+  </head>
+  <body>
+    <header class="mb-lg [ header ]">
+      <nav>
+        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
+          <li class="p-md"><a class="[ links ]" href="/">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main
+      class="mb-lg flex flex-column align-center justify-center gap-md [ main ]"
+      id="Home"
+    >
+      <div class="[ card ]" id="recipeContainer">
+        <div id="recipeName">
+          <h2>name</h2>
+        </div>
+        <div class="[ divider ]"></div>
+        <div id="recipeIngredients">
+          <h3 class="mb-lg">Ingredients</h3>
+          <div class="[ divider ]"></div>
+
+          <ul id="recipeIngredientsList"></ul>
+        </div>
+        <div class="[ divider ]"></div>
+        <div id="recipeInstructions">
+          <h3 class="mb-lg">Instructions</h3>
+          <div class="[ divider ]"></div>
+          <ul id="recipeInstructionsList"></ul>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 Cookbook. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

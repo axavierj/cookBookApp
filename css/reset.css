@@ -1,0 +1,76 @@
+/* import all roboto */
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-family: "Roboto", sans-serif;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* heading scale */
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.75em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 1.25em;
+}
+h5 {
+  font-size: 1em;
+}
+h6 {
+  font-size: 0.875em;
+}
+
+/* paragraph length in characters */
+p {
+  max-width: 75ch;
+}
+
+button {
+  cursor: pointer;
+}
+
+footer {
+  background-color: var(--secondary);
+  color: white;
+  text-align: center;
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+input,
+select {
+  border: 1px solid #ccc;
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
+}
+
+textarea {
+  border: 1px solid #ccc;
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
+  resize: none;
+  width: 100%;
+  min-height: 100px;
+}
