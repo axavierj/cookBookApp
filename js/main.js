@@ -1,4 +1,5 @@
 import API from "./db/api.js";
+import seedDatabase from "./db/seed.js";
 
 const recipeListContainer = document.getElementById("recipeListContainer");
 
@@ -57,5 +58,6 @@ const renderRecipes = (recipes) => {
   });
 };
 
+// seedDatabase();
 const recipes = await loadRecipes();
 renderRecipes(recipes);

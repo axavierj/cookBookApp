@@ -1,7 +1,7 @@
 const db = new Dexie("cookBookApp");
 
-db.version(1).stores({
-  recipes: "++id,name,ingredients,instructions",
+db.version(4).stores({
+  recipes: "++id,name,ingredients,instructions,createdAt",
 });
 
 export default db;
