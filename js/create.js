@@ -158,7 +158,10 @@ createRecipeButton.onclick = async () => {
   const recipe = makeRecipeObject(nameInput.value, ingredients, instructions);
   console.log(recipe);
   const createdRecipe = await createRecipe(recipe);
-  console.log(createdRecipe);
-  //navigate to home
+  if (!createdRecipe) {
+    showAlert("Recipe with this name already exists");
+    return;
+  }
+
   window.location.href = "/";
 };

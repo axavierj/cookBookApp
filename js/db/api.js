@@ -8,6 +8,11 @@ const getRecipeById = async (id) => {
 };
 
 const createRecipe = async (recipe) => {
+  const existingRecipe = await db.recipes.get({ name: recipe.name });
+  if (existingRecipe) {
+    console.log("Recipe with this name already exists");
+    return false;
+  }
   return db.recipes.add(recipe);
 };
 
