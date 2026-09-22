@@ -1,4 +1,5 @@
 import API from "../js/db/api.js";
+import validation from "../js/validation.js";
 
 const nameInput = document.getElementById("name");
 const ingredientInput = document.getElementById("ingredient");
@@ -29,6 +30,7 @@ const workInstructions = [...instructions];
 const showAlert = (message) => {
   alertMessage.textContent = message;
   alertDialog.showModal();
+  alertDialog.classList.add("bounceIn");
 };
 
 closeDialogButton.onclick = () => {
@@ -41,6 +43,7 @@ const renderIngredients = (array) => {
   recipeIngredientsList.innerHTML = "";
   array.forEach((item) => {
     const li = document.createElement("li");
+    li.classList.add("grid", "grid-cols-2");
     li.innerHTML = `${item.quantity} ${item.unit} ${item.name} <button data-index="${array.indexOf(item)}" class="btn delete-button ml-lg [ removeIngredient ]">remove</button>`;
     recipeIngredientsList.appendChild(li);
   });
@@ -59,6 +62,7 @@ const renderInstructions = (array) => {
   recipeInstructionsList.innerHTML = "";
   array.forEach((item, index) => {
     const li = document.createElement("li");
+    li.classList.add("grid", "grid-cols-2");
     li.innerHTML = `${item} <button data-index="${index}" class="btn delete-button ml-lg [ removeInstruction ]">remove</button>`;
     recipeInstructionsList.appendChild(li);
   });
@@ -105,6 +109,15 @@ addIngredientButton.onclick = () => {
   } else if (!validation.isFieldEmpty(ingredientInput.value)) {
     ingredientInput.classList.remove("invalid");
     ingredientInput.classList.add("valid");
+  }
+  if (validation.isValueZero(quantityInput.value)) {
+    showAlert("Quantity cannot be zero");
+    quantityInput.classList.remove("valid");
+    quantityInput.classList.add("invalid");
+    return;
+  } else if (!validation.isValueZero(quantityInput.value)) {
+    quantityInput.classList.remove("invalid");
+    quantityInput.classList.add("valid");
   }
   const newIngredient = makeIngredientObject(
     ingredientInput.value,
