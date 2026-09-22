@@ -358,6 +358,12 @@
   background-color: var(--info);
 }
 
+.close-button {
+  background-color: transparent;
+  border: none;
+  color: var(--primary);
+}
+
 .form-container {
   margin-bottom: var(--space-lg);
   display: flex;
@@ -387,4 +393,12 @@
   border-radius: var(--space-sm);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   min-width: 200px;
+}
+
+.invalid {
+  border: 1px solid var(--danger);
+}
+
+.valid {
+  border: 1px solid var(--success);
 }

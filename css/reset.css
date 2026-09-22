@@ -74,3 +74,11 @@ textarea {
   width: 100%;
   min-height: 100px;
 }
+
+dialog {
+  border: none;
+  border-radius: var(--space-xs);
+  padding: var(--space-md);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
