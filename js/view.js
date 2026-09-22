@@ -20,13 +20,13 @@ const renderName = ({ name }, element) => {
 
 const renderIngredients = ({ ingredients }, element) => {
   if (element) {
-    element.innerHTML = `<ul>${ingredients.map((ing) => `<li>${ing.name} ${ing.quantity} ${ing.unit}</li>`).join("")}</ul>`;
+    element.innerHTML = `<ul>${ingredients.map((ing) => `<li>- ${ing.name} ${ing.quantity} ${ing.unit}</li>`).join("")}</ul>`;
   }
 };
 
 const renderInstructions = ({ instructions }, element) => {
   if (element) {
-    element.innerHTML = `<ol>${instructions.map((step) => `<li>${step}</li>`).join("")}</ol>`;
+    element.innerHTML = `<ul class="[ display-list ]">${instructions.map((step) => `<li>- ${step}</li>`).join("")}</ul>`;
   }
 };
 

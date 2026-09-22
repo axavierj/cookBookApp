@@ -327,7 +327,7 @@
 }
 
 .list-grp {
-  list-style-type: none;
+  list-style-type: circle;
   background-color: var(--primary);
   color: white;
   border-radius: var(--space-xs);
@@ -336,7 +336,6 @@
   gap: var(--space-md);
   padding: var(--space-md);
 }
-
 .btn {
   cursor: pointer;
   border: none;
