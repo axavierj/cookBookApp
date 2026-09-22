@@ -20,7 +20,7 @@ const renderName = ({ name }, element) => {
 
 const renderIngredients = ({ ingredients }, element) => {
   if (element) {
-    element.innerHTML = `<ul>${ingredients.map((ing) => `<li class="grid grid-cols-3>${ing.name} ${ing.quantity} ${ing.unit}</li>`).join("")}</ul>`;
+    element.innerHTML = `<ul>${ingredients.map((ing) => `<li>${ing.name} ${ing.quantity} ${ing.unit}</li>`).join("")}</ul>`;
   }
 };
 

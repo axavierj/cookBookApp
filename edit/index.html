@@ -6,10 +6,18 @@
     <script type="module" src="../js/db/dexie.js" defer></script>
     <script type="module" src="../js/edit.js" defer></script>
     <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="../css/styles.css" />
     <title>cookbook</title>
   </head>
   <body>
+    <dialog id="alertDialog">
+      <div class="flex justify-between align-center">
+        <h5>Alert</h5>
+        <button class="btn [ close-button ]" id="closeDialog">Close</button>
+      </div>
+      <p id="alertMessage"></p>
+    </dialog>
     <header class="mb-lg [ header ]">
       <nav>
         <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">

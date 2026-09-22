@@ -9,10 +9,18 @@
     <script type="module" src="../js/create.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="../css/styles.css" />
     <title>cookbook</title>
   </head>
   <body>
+    <dialog id="alertDialog">
+      <div class="flex justify-between align-center">
+        <h5>Alert</h5>
+        <button class="btn [ close-button ]" id="closeDialog">Close</button>
+      </div>
+      <p id="alertMessage"></p>
+    </dialog>
     <header class="mb-lg [ header ]">
       <nav>
         <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
@@ -27,12 +35,18 @@
       <div class="[ form-container ]" id="createRecipeForm">
         <section class="[ form-grp ]" id="recipeNameSection">
           <label for="name">Recipe Name:</label>
-          <input type="text" id="name" name="name" required />
+          <input class="valid" type="text" id="name" name="name" required />
         </section>
         <section id="ingredientsSection">
           <div class="[ form-grp ]" id="ingrediantName">
             <label for="ingredient">Ingredient:</label>
-            <input type="text" id="ingredient" name="ingredient" required />
+            <input
+              class="valid"
+              type="text"
+              id="ingredient"
+              name="ingredient"
+              required
+            />
           </div>
           <div class="[ form-grp ]" id="ingretiantUnit">
             <label for="unit">Unit:</label>
@@ -51,6 +65,7 @@
           <div class="[ form-grp ]" id="ingredientQuantity">
             <label for="quantity">Quantity:</label>
             <input
+              class="valid"
               type="number"
               id="quantity"
               name="quantity"
@@ -65,7 +80,12 @@
         </section>
         <section class="[ form-grp ]" id="recipeInstuction">
           <label for="instructions">Instructions:</label>
-          <textarea id="instructions" name="instructions" required></textarea>
+          <textarea
+            class="valid"
+            id="instructions"
+            name="instructions"
+            required
+          ></textarea>
         </section>
         <button class="btn" type="button" id="addInstruction">
           Add instructions
