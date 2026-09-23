@@ -1,7 +1,7 @@
 import API from "./db/api.js";
-import seedDatabase from "./db/seed.js";
 
 const recipeListContainer = document.getElementById("recipeListContainer");
+const searchInput = document.getElementById("searchInput");
 
 const storedId = sessionStorage.getItem("viewRecipeId");
 
@@ -58,6 +58,14 @@ const renderRecipes = (recipes) => {
   });
 };
 
-// seedDatabase();
 const recipes = await loadRecipes();
 renderRecipes(recipes);
+
+searchInput.addEventListener("input", async (e) => {
+  const query = e.target.value.toLowerCase();
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.name.toLowerCase().includes(query),
+  );
+  renderRecipes(filteredRecipes);
+});
