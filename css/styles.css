@@ -411,5 +411,6 @@
 }
 .main-content {
   max-height: 100vh;
+  height: 82vh;
   overflow-y: auto;
 }
