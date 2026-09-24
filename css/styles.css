@@ -414,3 +414,13 @@
   height: 82vh;
   overflow-y: auto;
 }
+
+.pageButton,
+#prevPage,
+#nextPage {
+  cursor: pointer;
+  border: none;
+  text-decoration: underline;
+  background-color: transparent;
+  color: var(--accent);
+}
