@@ -6,19 +6,23 @@
     <!-- js -->
     <script type="module" src="../js/db/dexie.js" defer></script>
     <script type="module" src="../js/view.js" defer></script>
+    <script type="module" src="../js/components/ui/header.ui.js" defer></script>
+    <script
+      type="module"
+      src="../js/components/icons/home.icon.js"
+      defer
+    ></script>
+    <script
+      type="module"
+      src="../js/components/icons/create.icon.js"
+      defer
+    ></script>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/styles.css" />
     <title>cookbook</title>
   </head>
   <body>
-    <header class="mb-lg p-sm flex justify-between align-center [ header ]">
-      <div><h5>Cookbook</h5></div>
-      <nav>
-        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
-          <li class="p-md"><a class="[ links ]" href="/">Home</a></li>
-        </ul>
-      </nav>
-    </header>
+    <app-header></app-header>
     <main
       class="mb-lg flex flex-column align-center justify-center gap-md [ main ]"
       id="Home"

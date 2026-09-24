@@ -7,8 +7,17 @@ const prevPageButton = document.getElementById("prevPage");
 const nextPageButton = document.getElementById("nextPage");
 
 const storedId = sessionStorage.getItem("viewRecipeId");
+const editId = sessionStorage.getItem("editRecipeId");
+const viewId = sessionStorage.getItem("viewRecipeId");
 
 if (storedId) {
+  sessionStorage.removeItem("viewRecipeId");
+}
+if (editId) {
+  sessionStorage.removeItem("editRecipeId");
+}
+
+if (viewId) {
   sessionStorage.removeItem("viewRecipeId");
 }
 
@@ -30,39 +39,47 @@ const renderRecipes = (recipes) => {
       <div class="flex justify-between align-center">
         <p>${recipe.name}</p>
         <section>
-          <button data-id="${recipe.id}" id="delete-${recipe.id}" class="btn [ delete-button ]"><delete-icon></delete-icon></button>
-          <button data-id="${recipe.id}" id="edit-${recipe.id}" class="mx-sm btn [ edit-button ]"><edit-icon></edit-icon></button>
-          <button data-id="${recipe.id}" id="view-${recipe.id}" class="btn [ view-button ]"><view-icon></view-icon></button>
+          <button data-id="${recipe.id}" id="delete-${recipe.id}" class="btn [ delete-button ]"><delete-icon class="passClick"></delete-icon></button>
+          <button data-id="${recipe.id}" id="edit-${recipe.id}" class="mx-sm btn [ edit-button ]"><edit-icon class="passClick"></edit-icon></button>
+          <button data-id="${recipe.id}" id="view-${recipe.id}" class="btn [ view-button ]"><view-icon class="passClick"></view-icon></button>
         </section>
       </div>
     `;
     recipeListContainer.appendChild(li);
-    const deleteButtons = li.querySelectorAll(".delete-button");
-    deleteButtons.forEach((button) => {
-      button.onclick = async (e) => {
-        const id = Number(e.target.dataset.id);
-        await API.deleteRecipe(id);
-        const updatedRecipes = await loadRecipes();
-        renderRecipes(updatedRecipes);
-      };
+  });
+  const editButtons = document.querySelectorAll(".edit-button");
+  editButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const editId = Number(e.target.dataset.id);
+      console.log(editId);
+      sessionStorage.setItem("editRecipeId", editId);
+      window.location.href = "/edit/";
     });
-    const editButton = li.querySelector(".edit-button");
-    editButton.onclick = (e) => {
-      const id = e.target.dataset.id;
-      sessionStorage.setItem("editRecipeId", id);
-      window.location.href = `/edit/`;
-    };
-    const viewButton = li.querySelector(".view-button");
-    viewButton.onclick = (e) => {
-      const id = e.target.dataset.id;
-      sessionStorage.setItem("viewRecipeId", id);
-      window.location.href = `/view/`;
-    };
+  });
+
+  const deleteButtons = document.querySelectorAll(".delete-button");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const deleteId = Number(e.target.dataset.id);
+      await API.deleteRecipe(deleteId);
+      const updatedRecipes = await loadRecipes();
+      renderPaginatedRecipes(updatedRecipes, currentPage);
+    });
+  });
+
+  const viewButtons = document.querySelectorAll(".view-button");
+  viewButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const viewId = Number(e.target.dataset.id);
+      console.log(viewId);
+      sessionStorage.setItem("viewRecipeId", viewId);
+      window.location.href = "/view/";
+    });
   });
 };
 
 const recipes = await loadRecipes();
-// renderRecipes(recipes);
+renderRecipes(recipes);
 
 searchInput.addEventListener("input", async (e) => {
   const query = e.target.value.toLowerCase();

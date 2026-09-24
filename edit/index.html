@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../js/db/dexie.js" defer></script>
+    <script type="module" src="../js/components/ui/header.ui.js" defer></script>
+    <script
+      type="module"
+      src="../js/components/icons/home.icon.js"
+      defer
+    ></script>
+    <script
+      type="module"
+      src="../js/components/icons/create.icon.js"
+      defer
+    ></script>
     <script type="module" src="../js/edit.js" defer></script>
     <script
       type="module"
@@ -23,14 +34,7 @@
       </div>
       <p id="alertMessage"></p>
     </dialog>
-    <header class="mb-lg p-sm flex justify-between align-center [ header ]">
-      <div><h5>Cookbook</h5></div>
-      <nav>
-        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
-          <li class="p-md"><a class="[ links ]" href="/">Home</a></li>
-        </ul>
-      </nav>
-    </header>
+    <app-header></app-header>
     <main id="Home">
       <div class="[ form-container ]" id="createRecipeForm">
         <section class="[ form-grp ]" id="recipeNameSection">
