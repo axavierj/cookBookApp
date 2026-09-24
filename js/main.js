@@ -31,7 +31,7 @@ const renderRecipes = (recipes) => {
         <p>${recipe.name}</p>
         <section>
           <button data-id="${recipe.id}" id="delete-${recipe.id}" class="btn [ delete-button ]"><delete-icon></delete-icon></button>
-          <button data-id="${recipe.id}" id="edit-${recipe.id}" class="mx-sm btn [ edit-button ]">Edit</button>
+          <button data-id="${recipe.id}" id="edit-${recipe.id}" class="mx-sm btn [ edit-button ]"><edit-icon></edit-icon></button>
           <button data-id="${recipe.id}" id="view-${recipe.id}" class="btn [ view-button ]">View</button>
         </section>
       </div>
