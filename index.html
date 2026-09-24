@@ -21,25 +21,14 @@
       src="js/components/icons/create.icon.js"
       defer
     ></script>
+    <script type="module" src="js/components/ui/header.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>cookbook</title>
   </head>
   <body>
-    <header class="mb-lg p-sm flex justify-between align-center [ header ]">
-      <div><h5>Cookbook</h5></div>
-      <nav>
-        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
-          <li class="p-md">
-            <a class="[ links ]" href="/"><home-icon></home-icon></a>
-          </li>
-          <li class="p-md">
-            <a class="[ links ]" href="/create/"><create-icon></create-icon></a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <app-header></app-header>
     <main class="[ main-content ]" id="Home">
       <div class="flex flex-column align-center justify-center">
         <section class="form-grp [ search ]" id="search">
