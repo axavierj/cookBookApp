@@ -7,6 +7,11 @@
     <script type="module" src="../js/db/db.js" defer></script>
     <script type="module" src="../js/db/api.js" defer></script>
     <script type="module" src="../js/create.js" defer></script>
+    <script
+      type="module"
+      src="../js/components/icons/delete.icon.js"
+      defer
+    ></script>
     <!-- styles -->
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/animations.css" />
@@ -107,12 +112,12 @@
             <p>ingredient :</p>
           </div>
           <div id="previewIngredients">
-            <ul id="previewIngredientsList"></ul>
+            <ul class="list-grp" id="previewIngredientsList"></ul>
           </div>
           <div class="[ divider ]"></div>
           <div id="previewInstructions">
             <div><p>instructions :</p></div>
-            <ul id="previewInstructionsList"></ul>
+            <ul class="list-grp" id="previewInstructionsList"></ul>
           </div>
           <div class="[ divider ]"></div>
           <button class="btn" type="submit" id="createRecipeButton">

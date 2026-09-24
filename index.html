@@ -8,6 +8,19 @@
     <script type="module" src="js/db/db.js" defer></script>
     <script type="module" src="js/db/api.js" defer></script>
     <script type="module" src="js/main.js" defer></script>
+    <script
+      type="module"
+      src="js/components/icons/delete.icon.js"
+      defer
+    ></script>
+    <script type="module" src="js/components/icons/edit.icon.js" defer></script>
+    <script type="module" src="js/components/icons/view.icon.js" defer></script>
+    <script type="module" src="js/components/icons/home.icon.js" defer></script>
+    <script
+      type="module"
+      src="js/components/icons/create.icon.js"
+      defer
+    ></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -18,8 +31,12 @@
       <div><h5>Cookbook</h5></div>
       <nav>
         <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
-          <li class="p-md"><a class="[ links ]" href="/">Home</a></li>
-          <li class="p-md"><a class="[ links ]" href="/create/">Create</a></li>
+          <li class="p-md">
+            <a class="[ links ]" href="/"><home-icon></home-icon></a>
+          </li>
+          <li class="p-md">
+            <a class="[ links ]" href="/create/"><create-icon></create-icon></a>
+          </li>
         </ul>
       </nav>
     </header>

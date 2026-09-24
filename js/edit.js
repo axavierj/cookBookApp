@@ -44,7 +44,7 @@ const renderIngredients = (array) => {
   array.forEach((item) => {
     const li = document.createElement("li");
     li.classList.add("grid", "grid-cols-2");
-    li.innerHTML = `${item.quantity} ${item.unit} ${item.name} <button data-index="${array.indexOf(item)}" class="btn delete-button ml-lg [ removeIngredient ]">remove</button>`;
+    li.innerHTML = `${item.quantity} ${item.unit} ${item.name} <button data-index="${array.indexOf(item)}" class="btn delete-button ml-lg [ removeIngredient ]"><delete-icon></delete-icon></button>`;
     recipeIngredientsList.appendChild(li);
   });
   recipeIngredientsList
@@ -63,7 +63,7 @@ const renderInstructions = (array) => {
   array.forEach((item, index) => {
     const li = document.createElement("li");
     li.classList.add("grid", "grid-cols-2");
-    li.innerHTML = `${item} <button data-index="${index}" class="btn delete-button ml-lg [ removeInstruction ]">remove</button>`;
+    li.innerHTML = `${item} <button data-index="${index}" class="btn delete-button ml-lg [ removeInstruction ]"><delete-icon></delete-icon></button>`;
     recipeInstructionsList.appendChild(li);
   });
   recipeInstructionsList
