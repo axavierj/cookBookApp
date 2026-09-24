@@ -91,7 +91,7 @@ addIngredientButton.onclick = (event) => {
   const li = document.createElement("li");
   li.dataset.index = index;
   li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <button data-index="${index}" class="btn delete-button [ removeIngredient ]">Remove</button>`;
+  li.innerHTML = `${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <button data-index="${index}" class="btn delete-button [ removeIngredient ]"><delete-icon></delete-icon></button>`;
   previewIngredientsList.appendChild(li);
   const removeButtons = li.querySelectorAll(".removeIngredient");
   removeButtons.forEach((button) => {
@@ -119,7 +119,7 @@ addInstructions.onclick = () => {
   instructions.push(instruction);
   const li = document.createElement("li");
   li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${instruction} <button data-index="${instructions.length - 1}" class="btn delete-button [ removeInstruction ]">Remove</button>`;
+  li.innerHTML = `${instruction} <button data-index="${instructions.length - 1}" class="btn delete-button [ removeInstruction ]"><delete-icon></delete-icon></button>`;
   previewInstructionsList.appendChild(li);
   instructionsInput.value = "";
   const removeButtons = li.querySelectorAll(".removeInstruction");
