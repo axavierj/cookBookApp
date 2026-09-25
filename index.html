@@ -22,6 +22,7 @@
       defer
     ></script>
     <script type="module" src="js/components/ui/header.ui.js" defer></script>
+    <script type="module" src="js/components/ui/list.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -34,6 +35,7 @@
         <section class="form-grp [ search ]" id="search">
           <input type="text" id="searchInput" placeholder="Search recipes..." />
         </section>
+        <recipe-list></recipe-list>
         <ul
           class="flex flex-column align-center justify-center [ recipe-list ]"
           id="recipeListContainer"

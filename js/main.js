@@ -1,6 +1,7 @@
 import API from "./db/api.js";
 
 const recipeListContainer = document.getElementById("recipeListContainer");
+const recipeListComponent = document.querySelector("recipe-list");
 const searchInput = document.getElementById("searchInput");
 const paginationContainer = document.getElementById("pageContainer");
 const prevPageButton = document.getElementById("prevPage");
@@ -79,7 +80,8 @@ const renderRecipes = (recipes) => {
 };
 
 const recipes = await loadRecipes();
-renderRecipes(recipes);
+// renderRecipes(recipes);
+recipeListComponent.recipes = JSON.stringify(recipes);
 
 searchInput.addEventListener("input", async (e) => {
   const query = e.target.value.toLowerCase();
@@ -119,7 +121,7 @@ const renderPaginatedRecipes = (recipes, page = 1) => {
 };
 
 renderPagination();
-renderPaginatedRecipes(recipes, currentPage);
+// renderPaginatedRecipes(recipes, currentPage);
 
 prevPageButton.onclick = () => {
   if (currentPage > 1) {
