@@ -22,6 +22,7 @@
       defer
     ></script>
     <script type="module" src="js/components/ui/header.ui.js" defer></script>
+    <script type="module" src="js/components/ui/button.ui.js" defer></script>
     <script type="module" src="js/components/ui/list.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
@@ -35,22 +36,10 @@
         <section class="form-grp [ search ]" id="search">
           <input type="text" id="searchInput" placeholder="Search recipes..." />
         </section>
-        <recipe-list></recipe-list>
-        <ul
-          class="flex flex-column align-center justify-center [ recipe-list ]"
-          id="recipeListContainer"
-        >
-          <li class="[ recipe-item ]">
-            <div>
-              <p>Recipe 1</p>
-              <section>
-                <button id="delete">Delete</button>
-                <a href="/view/">view</a>
-                <a href="/edit/">Edit</a>
-              </section>
-            </div>
-          </li>
-        </ul>
+        <div class="px-sm">
+          <recipe-list></recipe-list>
+        </div>
+
         <section class="mt-md flex gap-md [ pagination ]" id="pagination">
           <button id="prevPage">Prev</button>
           <div class="flex gap-md" id="pageContainer"></div>

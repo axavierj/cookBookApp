@@ -27,60 +27,7 @@ const loadRecipes = async () => {
   return recipes;
 };
 
-const renderRecipes = (recipes) => {
-  if (recipes.length === 0) {
-    recipeListContainer.innerHTML = "<li>No recipes found</li>";
-    return;
-  }
-  recipeListContainer.innerHTML = "";
-  recipes.forEach((recipe) => {
-    const li = document.createElement("li");
-    li.className = "[ recipe-item ]";
-    li.innerHTML = `
-      <div class="flex justify-between align-center">
-        <p>${recipe.name}</p>
-        <section>
-          <button data-id="${recipe.id}" id="delete-${recipe.id}" class="btn [ delete-button ]"><delete-icon class="passClick"></delete-icon></button>
-          <button data-id="${recipe.id}" id="edit-${recipe.id}" class="mx-sm btn [ edit-button ]"><edit-icon class="passClick"></edit-icon></button>
-          <button data-id="${recipe.id}" id="view-${recipe.id}" class="btn [ view-button ]"><view-icon class="passClick"></view-icon></button>
-        </section>
-      </div>
-    `;
-    recipeListContainer.appendChild(li);
-  });
-  const editButtons = document.querySelectorAll(".edit-button");
-  editButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const editId = Number(e.target.dataset.id);
-      console.log(editId);
-      sessionStorage.setItem("editRecipeId", editId);
-      window.location.href = "/edit/";
-    });
-  });
-
-  const deleteButtons = document.querySelectorAll(".delete-button");
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", async (e) => {
-      const deleteId = Number(e.target.dataset.id);
-      await API.deleteRecipe(deleteId);
-      const updatedRecipes = await loadRecipes();
-      renderPaginatedRecipes(updatedRecipes, currentPage);
-    });
-  });
-
-  const viewButtons = document.querySelectorAll(".view-button");
-  viewButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const viewId = Number(e.target.dataset.id);
-      console.log(viewId);
-      sessionStorage.setItem("viewRecipeId", viewId);
-      window.location.href = "/view/";
-    });
-  });
-};
-
 const recipes = await loadRecipes();
-// renderRecipes(recipes);
 recipeListComponent.recipes = JSON.stringify(recipes);
 
 searchInput.addEventListener("input", async (e) => {
@@ -121,6 +68,25 @@ const renderPaginatedRecipes = (recipes, page = 1) => {
 };
 
 renderPagination();
+document.addEventListener("delete", async (e) => {
+  const { id } = e.detail;
+  const numid = Number(id);
+  await API.deleteRecipe(numid);
+  const updatedRecipes = await loadRecipes();
+  recipeListComponent.recipes = JSON.stringify(updatedRecipes);
+});
+document.addEventListener("edit", async (e) => {
+  const { id } = e.detail;
+  const numid = Number(id);
+  sessionStorage.setItem("editRecipeId", numid);
+  window.location.href = "/edit/";
+});
+document.addEventListener("view", async (e) => {
+  const { id } = e.detail;
+  const numid = Number(id);
+  sessionStorage.setItem("viewRecipeId", numid);
+  window.location.href = "/view/";
+});
 // renderPaginatedRecipes(recipes, currentPage);
 
 prevPageButton.onclick = () => {
