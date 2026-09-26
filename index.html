@@ -24,6 +24,11 @@
     <script type="module" src="js/components/ui/header.ui.js" defer></script>
     <script type="module" src="js/components/ui/button.ui.js" defer></script>
     <script type="module" src="js/components/ui/list.ui.js" defer></script>
+    <script
+      type="module"
+      src="js/components/ui/pagination.ui.js"
+      defer
+    ></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -41,9 +46,7 @@
         </div>
 
         <section class="mt-md flex gap-md [ pagination ]" id="pagination">
-          <button id="prevPage">Prev</button>
-          <div class="flex gap-md" id="pageContainer"></div>
-          <button id="nextPage">Next</button>
+          <app-pagination></app-pagination>
         </section>
       </div>
     </main>
