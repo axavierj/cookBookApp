@@ -24,6 +24,9 @@
       src="../js/components/icons/create.icon.js"
       defer
     ></script>
+    <script type="module" src="../js/components/ui/button.ui.js" defer></script>
+
+    <script type="module" src="../js/components/ui/alert.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/animations.css" />
@@ -31,13 +34,7 @@
     <title>cookbook</title>
   </head>
   <body>
-    <dialog id="alertDialog">
-      <div class="flex justify-between align-center">
-        <h5>Alert</h5>
-        <button class="btn [ close-button ]" id="closeDialog">Close</button>
-      </div>
-      <p id="alertMessage"></p>
-    </dialog>
+    <app-alert></app-alert>
     <app-header></app-header>
     <main id="Home">
       <div class="mb-lg flex justify-center">

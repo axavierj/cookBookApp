@@ -17,18 +17,11 @@ const previewInstructionsList = document.getElementById(
 );
 const addInstructions = document.getElementById("addInstruction");
 const createRecipeButton = document.getElementById("createRecipeButton");
-const alertDialog = document.getElementById("alertDialog");
-const alertMessage = document.getElementById("alertMessage");
-const closeDialog = document.getElementById("closeDialog");
+const alertDialog = document.querySelector("app-alert");
 
 const showAlert = (message) => {
-  alertMessage.textContent = message;
-  alertDialog.showModal();
-  alertDialog.classList.add("bounceIn");
-};
-
-closeDialog.onclick = () => {
-  alertDialog.close();
+  alertDialog.message = message;
+  alertDialog.open = "true";
 };
 
 let ingredients = [];

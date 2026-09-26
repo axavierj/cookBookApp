@@ -65,6 +65,14 @@ class CustomButton extends HTMLElement {
       }),
     );
   }
+  close() {
+    this.dispatchEvent(
+      new CustomEvent("close", {
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
 
   get type() {
     return this.getAttribute("type");
@@ -106,6 +114,7 @@ class CustomButton extends HTMLElement {
       this.button.addEventListener("click", () => this.view(this.recipeId));
     } else if (this.type === "close") {
       this.button.classList.add("close-button");
+      this.button.addEventListener("click", () => this.close());
     }
   }
 }
