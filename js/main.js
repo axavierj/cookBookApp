@@ -66,4 +66,5 @@ document.addEventListener("pagechange", async (e) => {
   const { currentPage, itemsPerPage } = e.detail;
   const paginatedRecipes = pagedRecipes(currentPage, itemsPerPage);
   recipeListComponent.recipes = JSON.stringify(paginatedRecipes);
+  appPaginationComponent.currentPage = currentPage;
 });

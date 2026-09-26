@@ -37,6 +37,8 @@ class PaginationComponent extends HTMLElement {
       this.currentPage || 1,
       parseInt(this.recipesPerPage || "5", 10),
     );
+    this.prevPageButton.addEventListener("click", () => this.prevPage());
+    this.nextPageButton.addEventListener("click", () => this.nextPage());
   }
 
   sendPageData(currentPage, itemsPerPage) {
@@ -47,6 +49,20 @@ class PaginationComponent extends HTMLElement {
         detail: { currentPage, itemsPerPage },
       }),
     );
+  }
+  nextPage() {
+    const currentPage = parseInt(this.currentPage || "1", 10);
+    const itemsPerPage = parseInt(this.recipesPerPage || "5", 10);
+    if (currentPage < parseInt(this.numberOfPages || "1", 10)) {
+      this.sendPageData(currentPage + 1, itemsPerPage);
+    }
+  }
+  prevPage() {
+    const currentPage = parseInt(this.currentPage || "1", 10);
+    const itemsPerPage = parseInt(this.recipesPerPage || "5", 10);
+    if (currentPage > 1) {
+      this.sendPageData(currentPage - 1, itemsPerPage);
+    }
   }
   get numberOfPages() {
     return this.getAttribute("numberofpages");
