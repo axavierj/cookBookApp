@@ -6,7 +6,7 @@ template.innerHTML = `
   width: 100%;
 }
   dialog {
-  background-color: var(--secondary);
+  background-color: var(--accent);
   color: white;
   text-align: center;
   padding: var(--space-md);
