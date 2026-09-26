@@ -29,6 +29,7 @@
       src="js/components/ui/pagination.ui.js"
       defer
     ></script>
+    <script type="module" src="js/components/ui/search.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -38,8 +39,8 @@
     <app-header></app-header>
     <main class="[ main-content ]" id="Home">
       <div class="flex flex-column align-center justify-center">
-        <section class="form-grp [ search ]" id="search">
-          <input type="text" id="searchInput" placeholder="Search recipes..." />
+        <section class="mb-md">
+          <app-search></app-search>
         </section>
         <div class="px-sm">
           <recipe-list></recipe-list>

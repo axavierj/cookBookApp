@@ -2,7 +2,6 @@ import API from "./db/api.js";
 
 const recipeListComponent = document.querySelector("recipe-list");
 const appPaginationComponent = document.querySelector("app-pagination");
-const searchInput = document.getElementById("searchInput");
 
 const storedId = sessionStorage.getItem("viewRecipeId");
 const editId = sessionStorage.getItem("editRecipeId");
@@ -40,15 +39,6 @@ appPaginationComponent.recipesPerPage = itemsPerPage;
 const initialPaginatedRecipes = pagedRecipes(1, itemsPerPage);
 recipeListComponent.recipes = JSON.stringify(initialPaginatedRecipes);
 
-searchInput.addEventListener("input", async (e) => {
-  const query = e.target.value.toLowerCase();
-
-  const filteredRecipes = recipes.filter((recipe) =>
-    recipe.name.toLowerCase().includes(query),
-  );
-  recipeListComponent.recipes = JSON.stringify(filteredRecipes);
-});
-
 document.addEventListener("edit", async (e) => {
   const { id } = e.detail;
   const numid = Number(id);
@@ -67,4 +57,11 @@ document.addEventListener("pagechange", async (e) => {
   const paginatedRecipes = pagedRecipes(currentPage, itemsPerPage);
   recipeListComponent.recipes = JSON.stringify(paginatedRecipes);
   appPaginationComponent.currentPage = currentPage;
+});
+document.addEventListener("search", async (e) => {
+  const { query } = e.detail;
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.name.toLowerCase().includes(query),
+  );
+  recipeListComponent.recipes = JSON.stringify(filteredRecipes);
 });
