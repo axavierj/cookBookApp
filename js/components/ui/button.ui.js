@@ -26,6 +26,14 @@ button{
   border: none;
   color: var(--primary);
 }
+.btn {
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
 </style>
 <button><slot></slot></button>
 `;
@@ -115,6 +123,8 @@ class CustomButton extends HTMLElement {
     } else if (this.type === "close") {
       this.button.classList.add("close-button");
       this.button.addEventListener("click", () => this.close());
+    } else if (this.type === "default") {
+      this.button.classList.add("btn");
     }
   }
 }

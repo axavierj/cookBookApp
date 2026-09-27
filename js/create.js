@@ -3,12 +3,7 @@ import validation from "./validation.js";
 
 const { createRecipe } = API;
 const nameInput = document.getElementById("name");
-const ingredientInput = document.getElementById("ingredient");
-const unitInput = document.getElementById("unit");
-const quantityInput = document.getElementById("quantity");
 const instructionsInput = document.getElementById("instructions");
-const addIngredientButton = document.getElementById("addIngredient");
-const previewName = document.getElementById("previewName");
 const previewIngredientsList = document.getElementById(
   "previewIngredientsList",
 );
@@ -27,14 +22,6 @@ const showAlert = (message) => {
 let ingredients = [];
 let instructions = [];
 
-nameInput.oninput = () => {
-  previewName.innerHTML = `<h3>${nameInput.value}</h3>`;
-};
-
-const makeIngredientObject = (name, unit, quantity) => {
-  return { name, unit, quantity };
-};
-
 const makeRecipeObject = (name, ingredients, instructions) => {
   return { name, ingredients, instructions };
 };
@@ -49,84 +36,15 @@ const removeIngredient = (index) => {
   }
 };
 
-addIngredientButton.onclick = (event) => {
-  if (event.target.classList.contains("removeIngredient")) {
-    const li = event.target.closest("li");
-    const index = Array.from(previewIngredientsList.children).indexOf(li);
-    removeIngredient(index);
-    return;
-  }
-  if (validation.isFieldEmpty(ingredientInput.value)) {
-    showAlert("Ingredient name cannot be empty");
-    ingredientInput.classList.remove("valid");
-    ingredientInput.classList.add("invalid");
-    return;
-  } else if (!validation.isFieldEmpty(ingredientInput.value)) {
-    ingredientInput.classList.remove("invalid");
-    ingredientInput.classList.add("valid");
-  }
+document.addEventListener("add-ingredient", (event) => {
+  const ingredient = event.detail;
+  console.log(ingredient);
+});
 
-  if (validation.isValueZero(quantityInput.value)) {
-    showAlert("Quantity cannot be zero");
-    quantityInput.classList.remove("valid");
-    quantityInput.classList.add("invalid");
-    return;
-  }
-  const ingredient = makeIngredientObject(
-    ingredientInput.value,
-    unitInput.value,
-    quantityInput.value,
-  );
-  ingredients.push(ingredient);
-  //get ingredient index in the list
-  const index = ingredients.length - 1;
-
-  const li = document.createElement("li");
-  li.dataset.index = index;
-  li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <button data-index="${index}" class="btn delete-button [ removeIngredient ]"><delete-icon></delete-icon></button>`;
-  previewIngredientsList.appendChild(li);
-  const removeButtons = li.querySelectorAll(".removeIngredient");
-  removeButtons.forEach((button) => {
-    button.onclick = (event) => {
-      const li = event.target.closest("li");
-      const index = Array.from(previewIngredientsList.children).indexOf(li);
-      removeIngredient(index);
-    };
-  });
-  ingredientInput.value = "";
-  ingredientInput.classList.remove("invalid");
-  ingredientInput.classList.add("valid");
-  unitInput.value = "grams";
-  quantityInput.value = "0";
-  quantityInput.classList.remove("invalid");
-  quantityInput.classList.add("valid");
-};
-
-addInstructions.onclick = () => {
-  const instruction = instructionsInput.value;
-  if (validation.isFieldEmpty(instruction)) {
-    showAlert("Instruction cannot be empty");
-    return;
-  }
-  instructions.push(instruction);
-  const li = document.createElement("li");
-  li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${instruction} <button data-index="${instructions.length - 1}" class="btn delete-button [ removeInstruction ]"><delete-icon></delete-icon></button>`;
-  previewInstructionsList.appendChild(li);
-  instructionsInput.value = "";
-  const removeButtons = li.querySelectorAll(".removeInstruction");
-  removeButtons.forEach((button) => {
-    button.onclick = (event) => {
-      const li = event.target.closest("li");
-      const index = Array.from(previewInstructionsList.children).indexOf(li);
-      if (index > -1) {
-        instructions.splice(index, 1);
-        li.remove();
-      }
-    };
-  });
-};
+document.addEventListener("add-instruction", (event) => {
+  const instruction = event.detail.instruction;
+  console.log(instruction);
+});
 
 createRecipeButton.onclick = async () => {
   if (validation.isFieldEmpty(nameInput.value)) {

@@ -35,12 +35,7 @@ ul{
 <ul id="recipeListContainer">
   <li>
     <div class="recipe-item">
-      <p>Recipe 1</p>
-      <section>
-        <button id="delete">Delete</button>
-        <a href="/view/">view</a>
-        <a href="/edit/">Edit</a>
-      </section>
+      no recipes available
     </div>
   </li>
 </ul>
