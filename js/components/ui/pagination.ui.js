@@ -9,6 +9,12 @@ template.innerHTML = `
 button {
   margin: 0 5px;
   padding: 5px 10px;
+   cursor: pointer;
+  border: none;
+  background-color: var(--accent);
+  color: white;
+  padding: var(--space-sm);
+  border-radius: var(--space-xs);
 }
   #paginationContainer {
     display: flex;
