@@ -33,6 +33,15 @@ const removeIngredient = (index) => {
     if (li) li.remove();
   }
 };
+const removeInstruction = (index) => {
+  if (index > -1) {
+    instructions.splice(index, 1);
+    const li = previewInstructionsList.querySelector(
+      `li[data-index="${index}"]`,
+    );
+    if (li) li.remove();
+  }
+};
 const addItemToPreviewList = (list, item, index) => {
   const li = document.createElement("li");
   li.innerHTML = item;
@@ -45,7 +54,7 @@ document.addEventListener("add-ingredient", (event) => {
   ingredients.push(ingredient);
   addItemToPreviewList(
     previewIngredientsList,
-    `<li data-index="${ingredients.indexOf(ingredient)}">${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <app-button recipe-id="${ingredients.indexOf(ingredient)}" type="delete">Remove</app-button></li>`,
+    `<li data-index="${ingredients.indexOf(ingredient)}">${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <app-button list-type="ingredients" recipe-id="${ingredients.indexOf(ingredient)}" type="delete">Remove</app-button></li>`,
     ingredients.length - 1,
   );
 });
@@ -56,7 +65,7 @@ document.addEventListener("add-instruction", (event) => {
   console.log(instruction);
   addItemToPreviewList(
     previewInstructionsList,
-    instruction,
+    `<li data-index="${instructions.indexOf(instruction)}">${instruction} <app-button list-type="instructions" recipe-id="${instructions.indexOf(instruction)}" type="delete">Remove</app-button></li>`,
     instructions.length - 1,
   );
 });
@@ -69,5 +78,20 @@ document.addEventListener("update-recipe-name", (event) => {
 
 document.addEventListener("delete", (event) => {
   const index = event.detail.id;
-  removeIngredient(index);
+  const type = event.detail.type;
+  if (type === "ingredients") {
+    removeIngredient(index);
+  } else if (type === "instructions") {
+    removeInstruction(index);
+  }
+});
+
+createRecipeButton.addEventListener("click", async () => {
+  const recipe = makeRecipeObject(recipeName, ingredients, instructions);
+  try {
+    await createRecipe(recipe);
+    showAlert("Recipe created successfully!");
+  } catch (error) {
+    showAlert("Failed to create recipe.");
+  }
 });

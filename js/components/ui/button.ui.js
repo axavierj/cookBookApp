@@ -46,21 +46,21 @@ class CustomButton extends HTMLElement {
     this.button = this.shadowRoot.querySelector("button");
   }
 
-  delete(id) {
+  delete(id, type) {
     this.dispatchEvent(
       new CustomEvent("delete", {
         bubbles: true,
         composed: true,
-        detail: { id },
+        detail: { id, type },
       }),
     );
   }
-  edit(id) {
+  edit(id, type) {
     this.dispatchEvent(
       new CustomEvent("edit", {
         bubbles: true,
         composed: true,
-        detail: { id },
+        detail: { id, type },
       }),
     );
   }
@@ -96,8 +96,15 @@ class CustomButton extends HTMLElement {
     this.setAttribute("recipe-id", value);
   }
 
+  get listType() {
+    return this.getAttribute("list-type");
+  }
+  set listType(value) {
+    this.setAttribute("list-type", value);
+  }
+
   static get observedAttributes() {
-    return ["type", "recipe-id"];
+    return ["type", "recipe-id", "list-type"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -113,10 +120,14 @@ class CustomButton extends HTMLElement {
     );
     if (this.type === "delete") {
       this.button.classList.add("delete-button");
-      this.button.addEventListener("click", () => this.delete(this.recipeId));
+      this.button.addEventListener("click", () =>
+        this.delete(this.recipeId, this.listType),
+      );
     } else if (this.type === "edit") {
       this.button.classList.add("edit-button");
-      this.button.addEventListener("click", () => this.edit(this.recipeId));
+      this.button.addEventListener("click", () =>
+        this.edit(this.recipeId, this.listType),
+      );
     } else if (this.type === "view") {
       this.button.classList.add("view-button");
       this.button.addEventListener("click", () => this.view(this.recipeId));

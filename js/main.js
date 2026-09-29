@@ -24,19 +24,19 @@ const loadRecipes = async () => {
 };
 
 const itemsPerPage = 5;
-const pagedRecipes = (currentPage, itemsPerPage) => {
+const pagedRecipes = (currentPage, itemsPerPage, recipes) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   return recipes.slice(startIndex, endIndex);
 };
 
-const recipes = await loadRecipes();
+let recipes = await loadRecipes();
 
 const numberOfPages = Math.ceil(recipes.length / itemsPerPage);
 appPaginationComponent.numberOfPages = numberOfPages;
 appPaginationComponent.currentPage = 1;
 appPaginationComponent.recipesPerPage = itemsPerPage;
-const initialPaginatedRecipes = pagedRecipes(1, itemsPerPage);
+const initialPaginatedRecipes = pagedRecipes(1, itemsPerPage, recipes);
 recipeListComponent.recipes = JSON.stringify(initialPaginatedRecipes);
 
 document.addEventListener("edit", async (e) => {
@@ -54,7 +54,7 @@ document.addEventListener("view", async (e) => {
 
 document.addEventListener("pagechange", async (e) => {
   const { currentPage, itemsPerPage } = e.detail;
-  const paginatedRecipes = pagedRecipes(currentPage, itemsPerPage);
+  const paginatedRecipes = pagedRecipes(currentPage, itemsPerPage, recipes);
   recipeListComponent.recipes = JSON.stringify(paginatedRecipes);
   appPaginationComponent.currentPage = currentPage;
 });
@@ -64,4 +64,24 @@ document.addEventListener("search", async (e) => {
     recipe.name.toLowerCase().includes(query),
   );
   recipeListComponent.recipes = JSON.stringify(filteredRecipes);
+});
+
+document.addEventListener("delete", async (e) => {
+  const { id, type } = e.detail;
+  const numid = Number(id);
+  await API.deleteRecipe(numid);
+  recipes = await loadRecipes();
+  const paginatedRecipes = pagedRecipes(
+    appPaginationComponent.currentPage,
+    itemsPerPage,
+    recipes,
+  );
+  appPaginationComponent.numberOfPages = Math.ceil(
+    recipes.length / itemsPerPage,
+  );
+  recipeListComponent.recipes = JSON.stringify(paginatedRecipes);
+  appPaginationComponent.currentPage = Math.min(
+    appPaginationComponent.currentPage,
+    Math.ceil(recipes.length / itemsPerPage),
+  );
 });
