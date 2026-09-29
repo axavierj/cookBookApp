@@ -21,54 +21,37 @@
       src="js/components/icons/create.icon.js"
       defer
     ></script>
+    <script type="module" src="js/components/ui/header.ui.js" defer></script>
+    <script type="module" src="js/components/ui/button.ui.js" defer></script>
+    <script type="module" src="js/components/ui/list.ui.js" defer></script>
+    <script
+      type="module"
+      src="js/components/ui/pagination.ui.js"
+      defer
+    ></script>
+    <script type="module" src="js/components/ui/search.ui.js" defer></script>
+    <script type="module" src="js/components/ui/footer.ui.js" defer></script>
     <!-- styles -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>cookbook</title>
   </head>
   <body>
-    <header class="mb-lg p-sm flex justify-between align-center [ header ]">
-      <div><h5>Cookbook</h5></div>
-      <nav>
-        <ul class="flex gap-md justify-end px-sm [ nav ]" id="nav-links">
-          <li class="p-md">
-            <a class="[ links ]" href="/"><home-icon></home-icon></a>
-          </li>
-          <li class="p-md">
-            <a class="[ links ]" href="/create/"><create-icon></create-icon></a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <app-header></app-header>
     <main class="[ main-content ]" id="Home">
       <div class="flex flex-column align-center justify-center">
-        <section class="form-grp [ search ]" id="search">
-          <input type="text" id="searchInput" placeholder="Search recipes..." />
+        <section class="mb-md">
+          <app-search></app-search>
         </section>
-        <ul
-          class="flex flex-column align-center justify-center [ recipe-list ]"
-          id="recipeListContainer"
-        >
-          <li class="[ recipe-item ]">
-            <div>
-              <p>Recipe 1</p>
-              <section>
-                <button id="delete">Delete</button>
-                <a href="/view/">view</a>
-                <a href="/edit/">Edit</a>
-              </section>
-            </div>
-          </li>
-        </ul>
-        <section class="mt-md flex gap-md [ pagination ]" id="pagination">
-          <button id="prevPage">Prev</button>
-          <div class="flex gap-md" id="pageContainer"></div>
-          <button id="nextPage">Next</button>
+        <div class="px-sm">
+          <recipe-list></recipe-list>
+        </div>
+
+        <section class="mt-md" id="pagination">
+          <app-pagination></app-pagination>
         </section>
       </div>
     </main>
-    <footer>
-      <p>&copy; 2024 Cookbook. All rights reserved.</p>
-    </footer>
+    <app-footer></app-footer>
   </body>
 </html>

@@ -1,6 +1,5 @@
 import API from "../js/db/api.js";
 import validation from "../js/validation.js";
-
 const nameInput = document.getElementById("name");
 const ingredientInput = document.getElementById("ingredient");
 const unitInput = document.getElementById("unit");

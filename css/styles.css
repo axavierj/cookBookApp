@@ -305,6 +305,10 @@
   width: 100%;
 }
 
+.passClick {
+  pointer-events: none;
+}
+
 .container {
   max-width: 1200px;
   margin-inline: auto;

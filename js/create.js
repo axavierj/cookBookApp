@@ -2,49 +2,27 @@ import API from "./db/api.js";
 import validation from "./validation.js";
 
 const { createRecipe } = API;
-const nameInput = document.getElementById("name");
-const ingredientInput = document.getElementById("ingredient");
-const unitInput = document.getElementById("unit");
-const quantityInput = document.getElementById("quantity");
-const instructionsInput = document.getElementById("instructions");
-const addIngredientButton = document.getElementById("addIngredient");
-const previewName = document.getElementById("previewName");
 const previewIngredientsList = document.getElementById(
   "previewIngredientsList",
 );
 const previewInstructionsList = document.getElementById(
   "previewInstructionsList",
 );
-const addInstructions = document.getElementById("addInstruction");
+const previewRecipeName = document.getElementById("previewName");
 const createRecipeButton = document.getElementById("createRecipeButton");
-const alertDialog = document.getElementById("alertDialog");
-const alertMessage = document.getElementById("alertMessage");
-const closeDialog = document.getElementById("closeDialog");
+const alertDialog = document.querySelector("app-alert");
 
 const showAlert = (message) => {
-  alertMessage.textContent = message;
-  alertDialog.showModal();
-  alertDialog.classList.add("bounceIn");
+  alertDialog.message = message;
+  alertDialog.open = "true";
 };
-
-closeDialog.onclick = () => {
-  alertDialog.close();
+const makeRecipeObject = (name, ingredients, instructions) => {
+  return { name, ingredients, instructions };
 };
 
 let ingredients = [];
 let instructions = [];
-
-nameInput.oninput = () => {
-  previewName.innerHTML = `<h3>${nameInput.value}</h3>`;
-};
-
-const makeIngredientObject = (name, unit, quantity) => {
-  return { name, unit, quantity };
-};
-
-const makeRecipeObject = (name, ingredients, instructions) => {
-  return { name, ingredients, instructions };
-};
+let recipeName = "";
 
 const removeIngredient = (index) => {
   if (index > -1) {
@@ -55,115 +33,71 @@ const removeIngredient = (index) => {
     if (li) li.remove();
   }
 };
-
-addIngredientButton.onclick = (event) => {
-  if (event.target.classList.contains("removeIngredient")) {
-    const li = event.target.closest("li");
-    const index = Array.from(previewIngredientsList.children).indexOf(li);
-    removeIngredient(index);
-    return;
+const removeInstruction = (index) => {
+  if (index > -1) {
+    instructions.splice(index, 1);
+    const li = previewInstructionsList.querySelector(
+      `li[data-index="${index}"]`,
+    );
+    if (li) li.remove();
   }
-  if (validation.isFieldEmpty(ingredientInput.value)) {
-    showAlert("Ingredient name cannot be empty");
-    ingredientInput.classList.remove("valid");
-    ingredientInput.classList.add("invalid");
-    return;
-  } else if (!validation.isFieldEmpty(ingredientInput.value)) {
-    ingredientInput.classList.remove("invalid");
-    ingredientInput.classList.add("valid");
-  }
-
-  if (validation.isValueZero(quantityInput.value)) {
-    showAlert("Quantity cannot be zero");
-    quantityInput.classList.remove("valid");
-    quantityInput.classList.add("invalid");
-    return;
-  }
-  const ingredient = makeIngredientObject(
-    ingredientInput.value,
-    unitInput.value,
-    quantityInput.value,
-  );
-  ingredients.push(ingredient);
-  //get ingredient index in the list
-  const index = ingredients.length - 1;
-
+};
+const addItemToPreviewList = (list, item, index) => {
   const li = document.createElement("li");
+  li.innerHTML = item;
   li.dataset.index = index;
-  li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <button data-index="${index}" class="btn delete-button [ removeIngredient ]"><delete-icon></delete-icon></button>`;
-  previewIngredientsList.appendChild(li);
-  const removeButtons = li.querySelectorAll(".removeIngredient");
-  removeButtons.forEach((button) => {
-    button.onclick = (event) => {
-      const li = event.target.closest("li");
-      const index = Array.from(previewIngredientsList.children).indexOf(li);
-      removeIngredient(index);
-    };
-  });
-  ingredientInput.value = "";
-  ingredientInput.classList.remove("invalid");
-  ingredientInput.classList.add("valid");
-  unitInput.value = "grams";
-  quantityInput.value = "0";
-  quantityInput.classList.remove("invalid");
-  quantityInput.classList.add("valid");
+  list.appendChild(li);
 };
 
-addInstructions.onclick = () => {
-  const instruction = instructionsInput.value;
-  if (validation.isFieldEmpty(instruction)) {
-    showAlert("Instruction cannot be empty");
-    return;
-  }
+document.addEventListener("add-ingredient", (event) => {
+  const ingredient = event.detail;
+  ingredients.push(ingredient);
+  addItemToPreviewList(
+    previewIngredientsList,
+    `<li data-index="${ingredients.indexOf(ingredient)}">${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <app-button list-type="ingredients" recipe-id="${ingredients.indexOf(ingredient)}" type="delete">Remove</app-button></li>`,
+    ingredients.length - 1,
+  );
+});
+
+document.addEventListener("add-instruction", (event) => {
+  const instruction = event.detail.instruction;
   instructions.push(instruction);
-  const li = document.createElement("li");
-  li.classList.add("grid", "grid-cols-2");
-  li.innerHTML = `${instruction} <button data-index="${instructions.length - 1}" class="btn delete-button [ removeInstruction ]"><delete-icon></delete-icon></button>`;
-  previewInstructionsList.appendChild(li);
-  instructionsInput.value = "";
-  const removeButtons = li.querySelectorAll(".removeInstruction");
-  removeButtons.forEach((button) => {
-    button.onclick = (event) => {
-      const li = event.target.closest("li");
-      const index = Array.from(previewInstructionsList.children).indexOf(li);
-      if (index > -1) {
-        instructions.splice(index, 1);
-        li.remove();
-      }
-    };
-  });
-};
+  console.log(instruction);
+  addItemToPreviewList(
+    previewInstructionsList,
+    `<li data-index="${instructions.indexOf(instruction)}">${instruction} <app-button list-type="instructions" recipe-id="${instructions.indexOf(instruction)}" type="delete">Remove</app-button></li>`,
+    instructions.length - 1,
+  );
+});
 
-createRecipeButton.onclick = async () => {
-  if (validation.isFieldEmpty(nameInput.value)) {
-    showAlert("Recipe name cannot be empty");
-    nameInput.classList.remove("valid");
-    nameInput.classList.add("invalid");
-    return;
-  }
-  if (validation.isArrayEmpty(ingredients)) {
-    showAlert("Ingredients cannot be empty");
-    ingredientsInput.classList.remove("valid");
-    ingredientsInput.classList.add("invalid");
-    return;
-  }
-  if (validation.isArrayEmpty(instructions)) {
-    showAlert("Instructions cannot be empty");
-    instructionsInput.classList.remove("valid");
-    instructionsInput.classList.add("invalid");
-    return;
-  } else {
-    instructionsInput.classList.remove("invalid");
-    instructionsInput.classList.add("valid");
-  }
-  const recipe = makeRecipeObject(nameInput.value, ingredients, instructions);
-  console.log(recipe);
-  const createdRecipe = await createRecipe(recipe);
-  if (!createdRecipe) {
-    showAlert("Recipe with this name already exists");
-    return;
-  }
+document.addEventListener("update-recipe-name", (event) => {
+  const name = event.detail.name;
+  recipeName = name;
+  previewRecipeName.textContent = recipeName;
+});
 
-  window.location.href = "/";
-};
+document.addEventListener("delete", (event) => {
+  const index = event.detail.id;
+  const type = event.detail.type;
+  if (type === "ingredients") {
+    removeIngredient(index);
+  } else if (type === "instructions") {
+    removeInstruction(index);
+  }
+});
+
+document.addEventListener("show-alert", (event) => {
+  const message = event.detail.message;
+  showAlert(message);
+});
+
+createRecipeButton.addEventListener("click", async () => {
+  const recipe = makeRecipeObject(recipeName, ingredients, instructions);
+  try {
+    await createRecipe(recipe);
+    //navigate to "/"
+    window.location.href = "/";
+  } catch (error) {
+    showAlert("Failed to create recipe.");
+  }
+});
