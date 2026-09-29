@@ -117,6 +117,18 @@ class CreateFormUI extends HTMLElement {
     this.instructionInput = this.shadowRoot.querySelector("#instructions");
   }
   connectedCallback() {
+    this.recipeNameInput.addEventListener("input", () => {
+      console.log(this.recipeNameInput.value);
+      this.recipeNameInput.classList.remove("invalid");
+      this.recipeNameInput.classList.add("valid");
+      this.dispatchEvent(
+        new CustomEvent("update-recipe-name", {
+          bubbles: true,
+          composed: true,
+          detail: { name: this.recipeNameInput.value },
+        }),
+      );
+    });
     this.addIngredientButton.addEventListener("click", () => {
       const ingredient = this.makeIngredientObject(
         this.ingredientNameInput.value,
@@ -130,6 +142,9 @@ class CreateFormUI extends HTMLElement {
           detail: ingredient,
         }),
       );
+      this.ingredientNameInput.value = "";
+      this.ingredientUnitSelect.value = "";
+      this.ingredientQuantityInput.value = "0";
     });
     this.addInstructionButton.addEventListener("click", () => {
       this.dispatchEvent(
@@ -139,6 +154,7 @@ class CreateFormUI extends HTMLElement {
           detail: { instruction: this.instructionInput.value },
         }),
       );
+      this.instructionInput.value = "";
     });
   }
   makeIngredientObject = (name, unit, quantity) => {

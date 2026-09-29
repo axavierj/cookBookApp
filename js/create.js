@@ -2,15 +2,13 @@ import API from "./db/api.js";
 import validation from "./validation.js";
 
 const { createRecipe } = API;
-const nameInput = document.getElementById("name");
-const instructionsInput = document.getElementById("instructions");
 const previewIngredientsList = document.getElementById(
   "previewIngredientsList",
 );
 const previewInstructionsList = document.getElementById(
   "previewInstructionsList",
 );
-const addInstructions = document.getElementById("addInstruction");
+const previewRecipeName = document.getElementById("previewName");
 const createRecipeButton = document.getElementById("createRecipeButton");
 const alertDialog = document.querySelector("app-alert");
 
@@ -18,13 +16,13 @@ const showAlert = (message) => {
   alertDialog.message = message;
   alertDialog.open = "true";
 };
-
-let ingredients = [];
-let instructions = [];
-
 const makeRecipeObject = (name, ingredients, instructions) => {
   return { name, ingredients, instructions };
 };
+
+let ingredients = [];
+let instructions = [];
+let recipeName = "";
 
 const removeIngredient = (index) => {
   if (index > -1) {
@@ -35,46 +33,41 @@ const removeIngredient = (index) => {
     if (li) li.remove();
   }
 };
+const addItemToPreviewList = (list, item, index) => {
+  const li = document.createElement("li");
+  li.innerHTML = item;
+  li.dataset.index = index;
+  list.appendChild(li);
+};
 
 document.addEventListener("add-ingredient", (event) => {
   const ingredient = event.detail;
-  console.log(ingredient);
+  ingredients.push(ingredient);
+  addItemToPreviewList(
+    previewIngredientsList,
+    `<li data-index="${ingredients.indexOf(ingredient)}">${ingredient.quantity} ${ingredient.unit} of ${ingredient.name} <app-button recipe-id="${ingredients.indexOf(ingredient)}" type="delete">Remove</app-button></li>`,
+    ingredients.length - 1,
+  );
 });
 
 document.addEventListener("add-instruction", (event) => {
   const instruction = event.detail.instruction;
+  instructions.push(instruction);
   console.log(instruction);
+  addItemToPreviewList(
+    previewInstructionsList,
+    instruction,
+    instructions.length - 1,
+  );
 });
 
-createRecipeButton.onclick = async () => {
-  if (validation.isFieldEmpty(nameInput.value)) {
-    showAlert("Recipe name cannot be empty");
-    nameInput.classList.remove("valid");
-    nameInput.classList.add("invalid");
-    return;
-  }
-  if (validation.isArrayEmpty(ingredients)) {
-    showAlert("Ingredients cannot be empty");
-    ingredientsInput.classList.remove("valid");
-    ingredientsInput.classList.add("invalid");
-    return;
-  }
-  if (validation.isArrayEmpty(instructions)) {
-    showAlert("Instructions cannot be empty");
-    instructionsInput.classList.remove("valid");
-    instructionsInput.classList.add("invalid");
-    return;
-  } else {
-    instructionsInput.classList.remove("invalid");
-    instructionsInput.classList.add("valid");
-  }
-  const recipe = makeRecipeObject(nameInput.value, ingredients, instructions);
-  console.log(recipe);
-  const createdRecipe = await createRecipe(recipe);
-  if (!createdRecipe) {
-    showAlert("Recipe with this name already exists");
-    return;
-  }
+document.addEventListener("update-recipe-name", (event) => {
+  const name = event.detail.name;
+  recipeName = name;
+  previewRecipeName.textContent = recipeName;
+});
 
-  window.location.href = "/";
-};
+document.addEventListener("delete", (event) => {
+  const index = event.detail.id;
+  removeIngredient(index);
+});
