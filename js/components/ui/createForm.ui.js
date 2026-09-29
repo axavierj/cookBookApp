@@ -1,3 +1,5 @@
+import validation from "../../validation.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
@@ -130,6 +132,18 @@ class CreateFormUI extends HTMLElement {
       );
     });
     this.addIngredientButton.addEventListener("click", () => {
+      if (validation.isFieldEmpty(this.ingredientNameInput.value)) {
+        this.sendAlert("Ingredient name cannot be empty.");
+        return;
+      }
+      if (validation.isFieldEmpty(this.ingredientUnitSelect.value)) {
+        this.sendAlert("Ingredient unit cannot be empty.");
+        return;
+      }
+      if (validation.isFieldEmpty(this.ingredientQuantityInput.value)) {
+        this.sendAlert("Ingredient quantity cannot be empty.");
+        return;
+      }
       const ingredient = this.makeIngredientObject(
         this.ingredientNameInput.value,
         this.ingredientUnitSelect.value,
@@ -146,6 +160,7 @@ class CreateFormUI extends HTMLElement {
       this.ingredientUnitSelect.value = "";
       this.ingredientQuantityInput.value = "0";
     });
+
     this.addInstructionButton.addEventListener("click", () => {
       this.dispatchEvent(
         new CustomEvent("add-instruction", {
@@ -160,5 +175,14 @@ class CreateFormUI extends HTMLElement {
   makeIngredientObject = (name, unit, quantity) => {
     return { name, unit, quantity };
   };
+
+  sendAlert(message) {
+    const alertEvent = new CustomEvent("show-alert", {
+      bubbles: true,
+      composed: true,
+      detail: { message },
+    });
+    this.dispatchEvent(alertEvent);
+  }
 }
 customElements.define("create-form", CreateFormUI);

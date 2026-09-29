@@ -86,11 +86,17 @@ document.addEventListener("delete", (event) => {
   }
 });
 
+document.addEventListener("show-alert", (event) => {
+  const message = event.detail.message;
+  showAlert(message);
+});
+
 createRecipeButton.addEventListener("click", async () => {
   const recipe = makeRecipeObject(recipeName, ingredients, instructions);
   try {
     await createRecipe(recipe);
-    showAlert("Recipe created successfully!");
+    //navigate to "/"
+    window.location.href = "/";
   } catch (error) {
     showAlert("Failed to create recipe.");
   }
