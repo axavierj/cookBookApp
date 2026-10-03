@@ -5,6 +5,7 @@ const recipeInstructionsElement = document.getElementById(
   "recipeInstructionsList",
 );
 const recipeId = sessionStorage.getItem("viewRecipeId");
+const printButton = document.querySelector("app-button[type='default']");
 
 const loadRecipe = async (id) => {
   if (!id) return null;
@@ -42,3 +43,9 @@ if (recipeId) {
   url.searchParams.set("id", recipeId);
   window.history.replaceState(null, "", url);
 }
+
+printButton.addEventListener("click", () => {
+  //navigate to print view
+
+  window.location.href = `/print/`;
+});
