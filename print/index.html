@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- js -->
     <script type="module" src="../js/db/dexie.js" defer></script>
-    <script type="module" src="../js/view.js" defer></script>
     <script type="module" src="../js/components/ui/header.ui.js" defer></script>
     <script
       type="module"
@@ -19,38 +18,22 @@
     ></script>
     <script type="module" src="../js/components/ui/footer.ui.js" defer></script>
     <script type="module" src="../js/components/ui/button.ui.js" defer></script>
+    <script type="module" src="../js/print.js" defer></script>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/print.css" />
     <title>cookbook</title>
   </head>
   <body>
     <app-header></app-header>
-    <main
-      class="mb-lg flex flex-column align-center justify-center gap-md [ main ]"
-      id="Home"
-    >
-      <div class="[ card ]" id="recipeContainer">
-        <div id="recipeName">
-          <h2>name</h2>
-        </div>
-        <div class="[ divider ]"></div>
-        <div id="recipeIngredients">
-          <h3 class="mb-lg">Ingredients</h3>
-          <div class="[ divider ]"></div>
-
-          <ul id="recipeIngredientsList"></ul>
-        </div>
-        <div class="[ divider ]"></div>
-        <div id="recipeInstructions">
-          <h3 class="mb-lg">Instructions</h3>
-          <div class="[ divider ]"></div>
-          <ul class="[ display-list ]" id="recipeInstructionsList"></ul>
-        </div>
-      </div>
-      <section>
-        <app-button type="default">Print</app-button>
-      </section>
+    <main>
+      <h1 id="RecipeName"></h1>
+      <h3>Ingredients</h3>
+      <ul id="RecipeIngredientsList"></ul>
+      <h3>Instructions</h3>
+      <ul id="RecipeInstructionsList"></ul>
     </main>
+    <app-button type="default">print</app-button>
     <app-footer></app-footer>
   </body>
 </html>
